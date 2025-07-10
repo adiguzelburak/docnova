@@ -22,8 +22,8 @@ export default function LoginPage() {
 
   const formik = useFormik({
     initialValues: {
-      email: "devmelauser@yopmail.com",
-      password: "Work123???",
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Required"),
