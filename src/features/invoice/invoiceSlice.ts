@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { InvoiceRequest, InvoiceResponse } from "./types";
+import type { Content, InvoiceRequest, InvoiceResponse } from "./types";
 import { getInvoicesAPI } from "./invoiceAPI";
 import type { RootState } from "../../store";
 import Cookies from "js-cookie";
 
 const initialState = {
   invoices: {} as InvoiceResponse,
+  invoceDetail: {} as Content,
   loading: false,
   error: null as string | null,
 };
@@ -27,6 +28,11 @@ export const getInvoices = createAsyncThunk(
       );
       onSuccess?.();
 
+      localStorage.setItem(
+        "invoices",
+        JSON.stringify(response.invoices.content)
+      );
+
       return response;
     } catch (error: any) {
       onError?.(error.response.data);
@@ -38,7 +44,16 @@ export const getInvoices = createAsyncThunk(
 const invoiceSlice = createSlice({
   name: "invoice",
   initialState,
-  reducers: {},
+  reducers: {
+    getInvoiceById: (state, action) => {
+      const invoices = JSON.parse(localStorage.getItem("invoices") || "[]");
+      const invoiceDetail = invoices.find(
+        (invoice: Content) => invoice.id === action.payload
+      );
+
+      state.invoceDetail = invoiceDetail as Content;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getInvoices.pending, (state) => {
       state.loading = true;
@@ -55,3 +70,4 @@ const invoiceSlice = createSlice({
 });
 
 export default invoiceSlice.reducer;
+export const { getInvoiceById } = invoiceSlice.actions;

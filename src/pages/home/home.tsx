@@ -12,7 +12,6 @@ export default function HomePage() {
     (state: RootState) => state.invoice
   );
 
-  console.log(loading);
   const handleFetchInvoices = () => {
     dispatch(
       getInvoices({
@@ -41,7 +40,7 @@ export default function HomePage() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="w-full">
       {contextHolder}
       <DataTable
         loading={loading}

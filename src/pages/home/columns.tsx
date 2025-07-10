@@ -32,6 +32,10 @@ export const columns: TableColumnsType<Content> = [
   {
     title: "Action",
     key: "operation",
-    render: (_, record) => <Link to={`/invoice/${record.id}`}>Details</Link>,
+    render: (_, record) => (
+      <Link className="!underline" to={`/invoice/${record.id}`}>
+        Details
+      </Link>
+    ),
   },
 ];

@@ -22,7 +22,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           className="h-screen"
         />
       </div>
-      <div className="col-span-10">{children}</div>
+      <div className="col-span-10 max-w-7xl mx-auto p-6">{children}</div>
     </div>
   );
 };

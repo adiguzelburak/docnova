@@ -27,6 +27,7 @@ const DataTable = ({
 
   return (
     <Table<Content>
+      className="min-w-7xl"
       loading={loading}
       columns={columns}
       expandable={{ expandedRowRender }}
