@@ -4,11 +4,12 @@ import { Input, Button, message } from "antd";
 import { login } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [messageApi, contextHolder] = message.useMessage();
   const { loading } = useSelector((state: RootState) => state.auth);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const formik = useFormik({
     initialValues: {
@@ -27,6 +28,7 @@ export default function LoginPage() {
           data: values,
           onSuccess: () => {
             messageApi.success("Login successful");
+            navigate("/");
           },
           onError: (error) => {
             messageApi.error("Login failed " + error.errorMessage);
