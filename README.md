@@ -1,7 +1,5 @@
 # Docnova
 
-A modern, responsive invoice management application built with React, TypeScript, and Ant Design. This application provides comprehensive invoice tracking, management, and PEPPOL integration for businesses.
-
 ## 🚀 Features
 
 ### 📊 **Invoice Management**
