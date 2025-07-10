@@ -1,13 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoices } from "../features/invoice/invoiceSlice";
+import { getInvoices } from "../../features/invoice/invoiceSlice";
 import { useEffect } from "react";
-import type { AppDispatch, RootState } from "../store";
+import type { AppDispatch, RootState } from "../../store";
 import { message } from "antd";
+import DataTable from "../../components/common/data-table";
 
 export default function HomePage() {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading } = useSelector((state: RootState) => state.invoice);
+  const { loading, invoices } = useSelector(
+    (state: RootState) => state.invoice
+  );
 
   console.log(loading);
   const handleFetchInvoices = () => {
@@ -26,9 +29,6 @@ export default function HomePage() {
           paymentStatus: null,
           isDeleted: false,
         },
-        onSuccess: () => {
-          messageApi.success("Invoices fetched successfully");
-        },
         onError: () => {
           messageApi.error("Error fetching invoices");
         },
@@ -43,9 +43,15 @@ export default function HomePage() {
   return (
     <div>
       {contextHolder}
-      <div>store.ts</div>
-      <div>authSlice x2</div>
-      <div>login.tsx</div>
+      <DataTable
+        loading={loading}
+        dataSource={invoices.invoices?.content || []}
+        pagination={{
+          page: invoices.invoices?.pageable.pageNumber + 1,
+          size: invoices.invoices?.pageable.pageSize || 20,
+          totalCount: invoices.invoices?.totalElements || 0,
+        }}
+      />
     </div>
   );
 }

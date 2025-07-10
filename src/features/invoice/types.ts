@@ -18,7 +18,7 @@ export interface InvoiceResponse {
   total: number;
   totalCount: number;
 }
-interface Invoices {
+export interface Invoices {
   content: Content[];
   pageable: Pageable;
   last: boolean;
@@ -44,7 +44,8 @@ interface Sort {
   sorted: boolean;
   unsorted: boolean;
 }
-interface Content {
+export interface Content {
+  key: string;
   id: string;
   companyId: string;
   userId?: any;

@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Input, Button, message } from "antd";
-import { login } from "../features/auth/authSlice";
+import { login } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../store";
+import type { AppDispatch, RootState } from "../../store";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
