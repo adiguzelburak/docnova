@@ -65,7 +65,7 @@ export default function InvoiceDetailPage() {
 
   if (loading) {
     return (
-      <div style={{ textAlign: "center", padding: "50px" }}>
+      <div className="text-center py-12 md:py-20">
         <Spin size="large" />
       </div>
     );
@@ -87,28 +87,30 @@ export default function InvoiceDetailPage() {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Row
         justify="space-between"
         align="middle"
-        style={{ marginBottom: "24px" }}
+        className="mb-4 md:mb-6"
+        gutter={[16, 16]}
       >
-        <Col>
-          <Space>
+        <Col xs={24} sm={16} md={18}>
+          <Space className="flex-wrap">
             <Button
               icon={<ArrowLeftOutlined />}
               onClick={handleGoBack}
               type="text"
+              size="large"
             >
               {t("back")}
             </Button>
-            <Title level={2} style={{ margin: 0 }}>
+            <Title level={2} className="!mb-0 text-lg md:text-xl lg:text-2xl">
               {t("invoiceDetails")}
             </Title>
           </Space>
         </Col>
-        <Col>
-          <Tag color="blue" style={{ fontSize: "14px", padding: "4px 12px" }}>
+        <Col xs={24} sm={8} md={6} className="text-left sm:text-right">
+          <Tag color="blue" className="text-sm px-3 py-1">
             {invoceDetail.status?.toUpperCase()}
           </Tag>
         </Col>
@@ -118,65 +120,108 @@ export default function InvoiceDetailPage() {
         title={
           <Space>
             <DollarOutlined />
-            <span>{t("invoiceSummary")}</span>
+            <span className="text-sm md:text-base">{t("invoiceSummary")}</span>
           </Space>
         }
-        style={{ marginBottom: "24px" }}
+        className="mb-4 md:mb-6"
       >
-        <Row gutter={[24, 16]}>
-          <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">{t("invoiceNumber")}</Text>
+        <Row gutter={[16, 16]}>
+          <Col xs={12} sm={12} md={6}>
+            <Text type="secondary" className="text-xs md:text-sm">
+              {t("invoiceNumber")}
+            </Text>
             <div>
-              <Text strong style={{ fontSize: "16px" }}>
+              <Text strong className="text-sm md:text-base break-words">
                 {invoceDetail.invoiceNumber}
               </Text>
             </div>
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">{t("totalAmount")}</Text>
+          <Col xs={12} sm={12} md={6}>
+            <Text type="secondary" className="text-xs md:text-sm">
+              {t("totalAmount")}
+            </Text>
             <div>
-              <Text strong style={{ fontSize: "18px", color: "#1890ff" }}>
+              <Text strong className="text-base md:text-lg text-blue-600">
                 €{invoceDetail.taxInclusiveAmount}
               </Text>
             </div>
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">{t("issueDate")}</Text>
+          <Col xs={12} sm={12} md={6}>
+            <Text type="secondary" className="text-xs md:text-sm">
+              {t("issueDate")}
+            </Text>
             <div>
-              <Text strong>{formatDate(invoceDetail.issueDate)}</Text>
+              <Text strong className="text-sm md:text-base">
+                {formatDate(invoceDetail.issueDate)}
+              </Text>
             </div>
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">{t("dueDate")}</Text>
+          <Col xs={12} sm={12} md={6}>
+            <Text type="secondary" className="text-xs md:text-sm">
+              {t("dueDate")}
+            </Text>
             <div>
-              <Text strong>{formatDate(invoceDetail.dueDate)}</Text>
+              <Text strong className="text-sm md:text-base">
+                {formatDate(invoceDetail.dueDate)}
+              </Text>
             </div>
           </Col>
         </Row>
       </Card>
 
-      <Row gutter={[24, 24]}>
+      <Row gutter={[16, 16]} className="mb-4 md:mb-6">
         <Col xs={24} lg={12}>
           <Card
             title={
               <Space>
                 <ShopOutlined />
-                <span>{t("supplierInformation")}</span>
+                <span className="text-sm md:text-base">
+                  {t("supplierInformation")}
+                </span>
               </Space>
             }
+            className="h-full"
           >
-            <Descriptions column={1} size="small">
-              <Descriptions.Item label={t("companyName")}>
-                <Text strong>{invoceDetail.supplierName}</Text>
+            <Descriptions
+              column={1}
+              size="small"
+              className="responsive-descriptions"
+            >
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("companyName")}</span>
+                }
+              >
+                <Text strong className="text-sm md:text-base break-words">
+                  {invoceDetail.supplierName}
+                </Text>
               </Descriptions.Item>
-              <Descriptions.Item label={t("vatNumber")}>
-                {invoceDetail.supplierVat}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("vatNumber")}</span>
+                }
+              >
+                <span className="text-sm md:text-base">
+                  {invoceDetail.supplierVat}
+                </span>
               </Descriptions.Item>
-              <Descriptions.Item label={t("country")}>
-                {invoceDetail.supplierCountryCode}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("country")}</span>
+                }
+              >
+                <span className="text-sm md:text-base">
+                  {invoceDetail.supplierCountryCode}
+                </span>
               </Descriptions.Item>
-              <Descriptions.Item label={t("endpoint")}>
-                {invoceDetail.supplierEndpoint}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("endpoint")}</span>
+                }
+              >
+                <span className="text-sm md:text-base break-all">
+                  {invoceDetail.supplierEndpoint}
+                </span>
               </Descriptions.Item>
             </Descriptions>
           </Card>
@@ -187,22 +232,55 @@ export default function InvoiceDetailPage() {
             title={
               <Space>
                 <UserOutlined />
-                <span>{t("customerInformation")}</span>
+                <span className="text-sm md:text-base">
+                  {t("customerInformation")}
+                </span>
               </Space>
             }
+            className="h-full"
           >
-            <Descriptions column={1} size="small">
-              <Descriptions.Item label={t("customerName")}>
-                <Text strong>{invoceDetail.customerName}</Text>
+            <Descriptions
+              column={1}
+              size="small"
+              className="responsive-descriptions"
+            >
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">
+                    {t("customerName")}
+                  </span>
+                }
+              >
+                <Text strong className="text-sm md:text-base break-words">
+                  {invoceDetail.customerName}
+                </Text>
               </Descriptions.Item>
-              <Descriptions.Item label={t("vatNumber")}>
-                {invoceDetail.customerVat}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("vatNumber")}</span>
+                }
+              >
+                <span className="text-sm md:text-base">
+                  {invoceDetail.customerVat}
+                </span>
               </Descriptions.Item>
-              <Descriptions.Item label={t("country")}>
-                {invoceDetail.customerCountryCode}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("country")}</span>
+                }
+              >
+                <span className="text-sm md:text-base">
+                  {invoceDetail.customerCountryCode}
+                </span>
               </Descriptions.Item>
-              <Descriptions.Item label={t("endpoint")}>
-                {invoceDetail.customerEndpoint || t("notAvailable")}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">{t("endpoint")}</span>
+                }
+              >
+                <span className="text-sm md:text-base break-all">
+                  {invoceDetail.customerEndpoint || t("notAvailable")}
+                </span>
               </Descriptions.Item>
             </Descriptions>
           </Card>
@@ -213,55 +291,126 @@ export default function InvoiceDetailPage() {
         title={
           <Space>
             <DollarOutlined />
-            <span>{t("financialDetails")}</span>
+            <span className="text-sm md:text-base">
+              {t("financialDetails")}
+            </span>
           </Space>
         }
-        style={{ marginTop: "24px" }}
+        className="mb-4 md:mb-6"
       >
-        <Row gutter={[24, 16]}>
+        <Row gutter={[16, 16]}>
           <Col xs={24} md={12}>
-            <Descriptions column={1} size="small">
-              <Descriptions.Item label={t("lineExtensionAmount")}>
-                €{invoceDetail.lineExtensionAmount}
+            <Descriptions
+              column={1}
+              size="small"
+              className="responsive-descriptions"
+            >
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">
+                    {t("lineExtensionAmount")}
+                  </span>
+                }
+              >
+                <span className="text-sm md:text-base">
+                  €{invoceDetail.lineExtensionAmount}
+                </span>
               </Descriptions.Item>
-              <Descriptions.Item label={t("taxExclusiveAmount")}>
-                €{invoceDetail.taxExclusiveAmount}
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">
+                    {t("taxExclusiveAmount")}
+                  </span>
+                }
+              >
+                <span className="text-sm md:text-base">
+                  €{invoceDetail.taxExclusiveAmount}
+                </span>
               </Descriptions.Item>
-              <Descriptions.Item label={t("taxInclusiveAmount")}>
-                <Text strong style={{ color: "#1890ff" }}>
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">
+                    {t("taxInclusiveAmount")}
+                  </span>
+                }
+              >
+                <Text strong className="text-sm md:text-base text-blue-600">
                   €{invoceDetail.taxInclusiveAmount}
                 </Text>
               </Descriptions.Item>
-              <Descriptions.Item label={t("payableAmount")}>
-                <Text strong style={{ color: "#52c41a" }}>
+              <Descriptions.Item
+                label={
+                  <span className="text-xs md:text-sm">
+                    {t("payableAmount")}
+                  </span>
+                }
+              >
+                <Text strong className="text-sm md:text-base text-green-600">
                   €{invoceDetail.payableAmount}
                 </Text>
               </Descriptions.Item>
             </Descriptions>
           </Col>
           <Col xs={24} md={12}>
-            <Card size="small" title={t("paymentStatus")}>
-              <Space direction="vertical" style={{ width: "100%" }}>
-                <div>
-                  <Text type="secondary">{t("status")}: </Text>
+            <Card
+              size="small"
+              title={
+                <span className="text-sm md:text-base">
+                  {t("paymentStatus")}
+                </span>
+              }
+              className="h-full"
+            >
+              <Space direction="vertical" className="w-full">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Text type="secondary" className="text-xs md:text-sm">
+                    {t("status")}:{" "}
+                  </Text>
                   <Tag
                     color={getPaymentStatusColor(
                       invoceDetail.paymentDetails?.paymentStatus
                     )}
+                    className="text-xs md:text-sm"
                   >
                     {invoceDetail.paymentDetails?.paymentStatus?.toUpperCase() ||
                       t("unknown")}
                   </Tag>
                 </div>
-                <Descriptions column={1} size="small">
-                  <Descriptions.Item label={t("totalAmount")}>
-                    €{invoceDetail.paymentDetails?.totalAmount || 0}
+                <Descriptions
+                  column={1}
+                  size="small"
+                  className="responsive-descriptions"
+                >
+                  <Descriptions.Item
+                    label={
+                      <span className="text-xs md:text-sm">
+                        {t("totalAmount")}
+                      </span>
+                    }
+                  >
+                    <span className="text-sm md:text-base">
+                      €{invoceDetail.paymentDetails?.totalAmount || 0}
+                    </span>
                   </Descriptions.Item>
-                  <Descriptions.Item label={t("paidAmount")}>
-                    €{invoceDetail.paymentDetails?.paidAmount || 0}
+                  <Descriptions.Item
+                    label={
+                      <span className="text-xs md:text-sm">
+                        {t("paidAmount")}
+                      </span>
+                    }
+                  >
+                    <span className="text-sm md:text-base">
+                      €{invoceDetail.paymentDetails?.paidAmount || 0}
+                    </span>
                   </Descriptions.Item>
-                  <Descriptions.Item label={t("remainingAmount")}>
-                    <Text strong style={{ color: "#f5222d" }}>
+                  <Descriptions.Item
+                    label={
+                      <span className="text-xs md:text-sm">
+                        {t("remainingAmount")}
+                      </span>
+                    }
+                  >
+                    <Text strong className="text-sm md:text-base text-red-600">
                       €{invoceDetail.paymentDetails?.remainingAmount || 0}
                     </Text>
                   </Descriptions.Item>
@@ -272,34 +421,84 @@ export default function InvoiceDetailPage() {
         </Row>
       </Card>
 
-      <Card title={t("additionalInformation")} style={{ marginTop: "24px" }}>
-        <Descriptions column={{ xs: 1, sm: 2, md: 3 }} size="small">
-          <Descriptions.Item label={t("documentType")}>
-            {invoceDetail.documentType}
+      <Card
+        title={
+          <span className="text-sm md:text-base">
+            {t("additionalInformation")}
+          </span>
+        }
+        className="mb-4 md:mb-6"
+      >
+        <Descriptions
+          column={{ xs: 1, sm: 2, md: 3 }}
+          size="small"
+          className="responsive-descriptions"
+        >
+          <Descriptions.Item
+            label={
+              <span className="text-xs md:text-sm">{t("documentType")}</span>
+            }
+          >
+            <span className="text-sm md:text-base">
+              {invoceDetail.documentType}
+            </span>
           </Descriptions.Item>
-          <Descriptions.Item label={t("type")}>
-            {invoceDetail.type}
+          <Descriptions.Item
+            label={<span className="text-xs md:text-sm">{t("type")}</span>}
+          >
+            <span className="text-sm md:text-base">{invoceDetail.type}</span>
           </Descriptions.Item>
-          <Descriptions.Item label={t("source")}>
-            {invoceDetail.source}
+          <Descriptions.Item
+            label={<span className="text-xs md:text-sm">{t("source")}</span>}
+          >
+            <span className="text-sm md:text-base">{invoceDetail.source}</span>
           </Descriptions.Item>
-          <Descriptions.Item label={t("currency")}>
-            {invoceDetail.currency}
+          <Descriptions.Item
+            label={<span className="text-xs md:text-sm">{t("currency")}</span>}
+          >
+            <span className="text-sm md:text-base">
+              {invoceDetail.currency}
+            </span>
           </Descriptions.Item>
-          <Descriptions.Item label={t("sendViaPeppol")}>
-            <Tag color={invoceDetail.sendViaPeppol ? "green" : "red"}>
+          <Descriptions.Item
+            label={
+              <span className="text-xs md:text-sm">{t("sendViaPeppol")}</span>
+            }
+          >
+            <Tag
+              color={invoceDetail.sendViaPeppol ? "green" : "red"}
+              className="text-xs md:text-sm"
+            >
               {invoceDetail.sendViaPeppol ? t("yes") : t("no")}
             </Tag>
           </Descriptions.Item>
-          <Descriptions.Item label={t("createdDate")}>
-            {formatDate(invoceDetail.createdTime)}
+          <Descriptions.Item
+            label={
+              <span className="text-xs md:text-sm">{t("createdDate")}</span>
+            }
+          >
+            <span className="text-sm md:text-base">
+              {formatDate(invoceDetail.createdTime)}
+            </span>
           </Descriptions.Item>
-          <Descriptions.Item label={t("lastUpdated")}>
-            {formatDate(invoceDetail.lastUpdatedTime)}
+          <Descriptions.Item
+            label={
+              <span className="text-xs md:text-sm">{t("lastUpdated")}</span>
+            }
+          >
+            <span className="text-sm md:text-base">
+              {formatDate(invoceDetail.lastUpdatedTime)}
+            </span>
           </Descriptions.Item>
           {invoceDetail.deliveryDate && (
-            <Descriptions.Item label={t("deliveryDate")}>
-              {formatDate(invoceDetail.deliveryDate)}
+            <Descriptions.Item
+              label={
+                <span className="text-xs md:text-sm">{t("deliveryDate")}</span>
+              }
+            >
+              <span className="text-sm md:text-base">
+                {formatDate(invoceDetail.deliveryDate)}
+              </span>
             </Descriptions.Item>
           )}
         </Descriptions>

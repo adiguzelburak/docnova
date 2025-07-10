@@ -6,7 +6,7 @@ export default function ThemeToggle() {
   const { isDark, toggleTheme } = useTheme();
 
   return (
-    <Button onClick={toggleTheme}>
+    <Button onClick={toggleTheme} size="middle" className="w-full min-w-[40px]">
       {isDark ? <MoonOutlined /> : <SunOutlined />}
     </Button>
   );

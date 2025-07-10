@@ -69,29 +69,30 @@ export default function LoginPage() {
 
   return (
     <div
-      className="flex justify-center items-center h-screen"
+      className="min-h-screen flex justify-center items-center px-4 py-8"
       style={{ background: isDark ? "black" : "#f0f0f0" }}
     >
       {contextHolder}
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-4 p-8 rounded-md w-96"
+        className="flex flex-col gap-4 p-6 md:p-8 rounded-md w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl"
         style={{
           background: isDark ? "#141414" : "#fff",
         }}
       >
-        <div className="flex items-center gap-4 mb-4 justify-center">
+        <div className="flex items-center gap-2 md:gap-4 mb-4 justify-center">
           <svg
             preserveAspectRatio="xMidYMid meet"
             data-bbox="23.5 23.5 153 153"
             viewBox="23.5 23.5 153 153"
-            height="50"
-            width="50"
+            height="40"
+            width="40"
             xmlns="http://www.w3.org/2000/svg"
             data-type="color"
             role="img"
             aria-label="Homepage"
             fill="white"
+            className="md:h-[50px] md:w-[50px]"
           >
             <g>
               <path
@@ -102,7 +103,7 @@ export default function LoginPage() {
             </g>
           </svg>
           <h1
-            className="text-2xl font-bold text-center font-mono"
+            className="text-xl md:text-2xl font-bold text-center font-mono"
             style={{ color: isDark ? "#fff" : "#111010" }}
           >
             DocNova
@@ -117,6 +118,7 @@ export default function LoginPage() {
             type="email"
             name="email"
             placeholder={t("email")}
+            size="large"
           />
           {formik.errors.email && (
             <div className="text-red-500 text-sm font-semibold p-1">
@@ -132,6 +134,7 @@ export default function LoginPage() {
             type="password"
             name="password"
             placeholder={t("password")}
+            size="large"
           />
           {formik.errors.password && (
             <div className="text-red-500 text-sm font-semibold p-1">
@@ -145,6 +148,8 @@ export default function LoginPage() {
           loading={loading}
           disabled={loading}
           icon={<LoginOutlined />}
+          size="large"
+          className="mt-2"
         >
           {loading ? t("loggingIn") : t("login")}
         </Button>

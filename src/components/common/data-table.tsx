@@ -28,25 +28,37 @@ const DataTable = ({
       columns={expandColumns}
       dataSource={[record]}
       pagination={false}
+      scroll={{ x: 800 }}
+      size="small"
     />
   );
 
   return (
-    <Table<Content>
-      className="min-w-7xl"
-      loading={loading}
-      columns={columns}
-      expandable={{ expandedRowRender }}
-      dataSource={dataSource.map((item) => ({
-        ...item,
-        key: item.id,
-      }))}
-      pagination={{
-        pageSize: pagination.size,
-        total: pagination.totalCount,
-        current: pagination.page,
-      }}
-    />
+    <div className="w-full overflow-hidden">
+      <Table<Content>
+        className="w-full"
+        loading={loading}
+        columns={columns}
+        expandable={{
+          expandedRowRender,
+        }}
+        dataSource={dataSource.map((item) => ({
+          ...item,
+          key: item.id,
+        }))}
+        scroll={{
+          x: 1200,
+          y: "calc(100vh - 300px)",
+        }}
+        pagination={{
+          pageSize: pagination.size,
+          total: pagination.totalCount,
+          current: pagination.page,
+        }}
+        size="middle"
+        bordered
+      />
+    </div>
   );
 };
 

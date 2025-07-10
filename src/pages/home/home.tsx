@@ -40,17 +40,19 @@ export default function HomePage() {
   }, [dispatch]);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full flex flex-col">
       {contextHolder}
-      <DataTable
-        loading={loading}
-        dataSource={invoices.invoices?.content || []}
-        pagination={{
-          page: invoices.invoices?.pageable.pageNumber + 1,
-          size: invoices.invoices?.pageable.pageSize || 20,
-          totalCount: invoices.invoices?.totalElements || 0,
-        }}
-      />
+      <div className="flex-1 min-h-0">
+        <DataTable
+          loading={loading}
+          dataSource={invoices.invoices?.content || []}
+          pagination={{
+            page: invoices.invoices?.pageable.pageNumber + 1,
+            size: invoices.invoices?.pageable.pageSize || 20,
+            totalCount: invoices.invoices?.totalElements || 0,
+          }}
+        />
+      </div>
     </div>
   );
 }
