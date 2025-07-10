@@ -1,40 +1,60 @@
 import type { TableColumnsType } from "antd";
 import { Link } from "react-router-dom";
 import type { Content } from "../../features/invoice/types";
+import { format } from "date-fns";
 
-export const expandColumns: TableColumnsType<Content> = [
-  { title: "Status", dataIndex: "status", key: "status" },
-  { title: "Currency", dataIndex: "currency", key: "currency" },
-  { title: "Issue Date", dataIndex: "issueDate", key: "issueDate" },
-  { title: "Due Date", dataIndex: "dueDate", key: "dueDate" },
-  { title: "Payable Amount", dataIndex: "payableAmount", key: "payableAmount" },
-  { title: "Document Type", dataIndex: "documentType", key: "documentType" },
-  { title: "Type", dataIndex: "type", key: "type" },
-  { title: "Supplier VAT", dataIndex: "supplierVat", key: "supplierVat" },
-  { title: "Customer VAT", dataIndex: "customerVat", key: "customerVat" },
+export const getExpandColumns = (
+  t: (key: string) => string
+): TableColumnsType<Content> => [
+  { title: t("status"), dataIndex: "status", key: "status" },
+  { title: t("currency"), dataIndex: "currency", key: "currency" },
+  { title: t("issueDate"), dataIndex: "issueDate", key: "issueDate" },
+  { title: t("dueDate"), dataIndex: "dueDate", key: "dueDate" },
+  {
+    title: t("payableAmount"),
+    dataIndex: "payableAmount",
+    key: "payableAmount",
+  },
+  { title: t("documentType"), dataIndex: "documentType", key: "documentType" },
+  { title: t("type"), dataIndex: "type", key: "type" },
+  { title: t("supplierVat"), dataIndex: "supplierVat", key: "supplierVat" },
+  { title: t("customerVat"), dataIndex: "customerVat", key: "customerVat" },
 ];
 
-export const columns: TableColumnsType<Content> = [
-  { title: "Name", dataIndex: "customerName", key: "customerName" },
-  { title: "Platform", dataIndex: "supplierName", key: "supplierName" },
-  { title: "Invoice Number", dataIndex: "invoiceNumber", key: "invoiceNumber" },
+export const getColumns = (
+  t: (key: string) => string
+): TableColumnsType<Content> => [
+  { title: t("name"), dataIndex: "customerName", key: "customerName" },
+  { title: t("platform"), dataIndex: "supplierName", key: "supplierName" },
   {
-    title: "Tax Exclusive Amount",
+    title: t("invoiceNumber"),
+    dataIndex: "invoiceNumber",
+    key: "invoiceNumber",
+  },
+  {
+    title: t("taxExclusiveAmount"),
     dataIndex: "taxExclusiveAmount",
     key: "taxExclusiveAmount",
+    render: (value) => <span>€{value}</span>,
   },
   {
-    title: "Tax Inclusive Amount",
+    title: t("taxInclusiveAmount"),
     dataIndex: "taxInclusiveAmount",
     key: "taxInclusiveAmount",
+    render: (value) => <span>€{value}</span>,
   },
-  { title: "Created Time", dataIndex: "createdTime", key: "createdTime" },
   {
-    title: "Action",
+    title: t("createdTime"),
+    dataIndex: "createdTime",
+    key: "createdTime",
+    render: (value) => <span>{format(new Date(value), "dd.MM.yyyy")}</span>,
+  },
+  {
+    title: t("action"),
     key: "operation",
     render: (_, record) => (
       <Link className="!underline" to={`/invoice/${record.id}`}>
-        Details
+        {t("details")}
       </Link>
     ),
   },

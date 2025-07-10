@@ -1,6 +1,7 @@
 import { Table } from "antd";
+import { useTranslation } from "react-i18next";
 import type { Content } from "../../features/invoice/types";
-import { columns, expandColumns } from "../../pages/home/columns";
+import { getColumns, getExpandColumns } from "../../pages/home/columns";
 
 interface PaginationProps {
   page: number;
@@ -17,6 +18,11 @@ const DataTable = ({
   pagination: PaginationProps;
   loading: boolean;
 }) => {
+  const { t } = useTranslation();
+
+  const columns = getColumns(t);
+  const expandColumns = getExpandColumns(t);
+
   const expandedRowRender = (record: Content) => (
     <Table<Content>
       columns={expandColumns}

@@ -19,6 +19,7 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getInvoiceById } from "../../features/invoice/invoiceSlice";
 import type { AppDispatch, RootState } from "../../store";
 import { format } from "date-fns";
@@ -29,6 +30,7 @@ export default function InvoiceDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const { t } = useTranslation();
 
   const { invoceDetail, loading } = useSelector(
     (state: RootState) => state.invoice
@@ -73,11 +75,11 @@ export default function InvoiceDetailPage() {
     return (
       <Result
         status="404"
-        title="Invoice Not Found"
-        subTitle="The invoice you're looking for doesn't exist."
+        title={t("invoiceNotFound")}
+        subTitle={t("invoiceNotFoundDesc")}
         extra={
           <Button type="default" onClick={handleGoBack}>
-            Go Back
+            {t("goBack")}
           </Button>
         }
       />
@@ -98,10 +100,10 @@ export default function InvoiceDetailPage() {
               onClick={handleGoBack}
               type="text"
             >
-              Back
+              {t("back")}
             </Button>
             <Title level={2} style={{ margin: 0 }}>
-              Invoice Details
+              {t("invoiceDetails")}
             </Title>
           </Space>
         </Col>
@@ -116,14 +118,14 @@ export default function InvoiceDetailPage() {
         title={
           <Space>
             <DollarOutlined />
-            <span>Invoice Summary</span>
+            <span>{t("invoiceSummary")}</span>
           </Space>
         }
         style={{ marginBottom: "24px" }}
       >
         <Row gutter={[24, 16]}>
           <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">Invoice Number</Text>
+            <Text type="secondary">{t("invoiceNumber")}</Text>
             <div>
               <Text strong style={{ fontSize: "16px" }}>
                 {invoceDetail.invoiceNumber}
@@ -131,7 +133,7 @@ export default function InvoiceDetailPage() {
             </div>
           </Col>
           <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">Total Amount</Text>
+            <Text type="secondary">{t("totalAmount")}</Text>
             <div>
               <Text strong style={{ fontSize: "18px", color: "#1890ff" }}>
                 €{invoceDetail.taxInclusiveAmount}
@@ -139,13 +141,13 @@ export default function InvoiceDetailPage() {
             </div>
           </Col>
           <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">Issue Date</Text>
+            <Text type="secondary">{t("issueDate")}</Text>
             <div>
               <Text strong>{formatDate(invoceDetail.issueDate)}</Text>
             </div>
           </Col>
           <Col xs={24} sm={12} md={6}>
-            <Text type="secondary">Due Date</Text>
+            <Text type="secondary">{t("dueDate")}</Text>
             <div>
               <Text strong>{formatDate(invoceDetail.dueDate)}</Text>
             </div>
@@ -159,21 +161,21 @@ export default function InvoiceDetailPage() {
             title={
               <Space>
                 <ShopOutlined />
-                <span>Supplier Information</span>
+                <span>{t("supplierInformation")}</span>
               </Space>
             }
           >
             <Descriptions column={1} size="small">
-              <Descriptions.Item label="Company Name">
+              <Descriptions.Item label={t("companyName")}>
                 <Text strong>{invoceDetail.supplierName}</Text>
               </Descriptions.Item>
-              <Descriptions.Item label="VAT Number">
+              <Descriptions.Item label={t("vatNumber")}>
                 {invoceDetail.supplierVat}
               </Descriptions.Item>
-              <Descriptions.Item label="Country">
+              <Descriptions.Item label={t("country")}>
                 {invoceDetail.supplierCountryCode}
               </Descriptions.Item>
-              <Descriptions.Item label="Endpoint">
+              <Descriptions.Item label={t("endpoint")}>
                 {invoceDetail.supplierEndpoint}
               </Descriptions.Item>
             </Descriptions>
@@ -185,22 +187,22 @@ export default function InvoiceDetailPage() {
             title={
               <Space>
                 <UserOutlined />
-                <span>Customer Information</span>
+                <span>{t("customerInformation")}</span>
               </Space>
             }
           >
             <Descriptions column={1} size="small">
-              <Descriptions.Item label="Customer Name">
+              <Descriptions.Item label={t("customerName")}>
                 <Text strong>{invoceDetail.customerName}</Text>
               </Descriptions.Item>
-              <Descriptions.Item label="VAT Number">
+              <Descriptions.Item label={t("vatNumber")}>
                 {invoceDetail.customerVat}
               </Descriptions.Item>
-              <Descriptions.Item label="Country">
+              <Descriptions.Item label={t("country")}>
                 {invoceDetail.customerCountryCode}
               </Descriptions.Item>
-              <Descriptions.Item label="Endpoint">
-                {invoceDetail.customerEndpoint || "N/A"}
+              <Descriptions.Item label={t("endpoint")}>
+                {invoceDetail.customerEndpoint || t("notAvailable")}
               </Descriptions.Item>
             </Descriptions>
           </Card>
@@ -211,7 +213,7 @@ export default function InvoiceDetailPage() {
         title={
           <Space>
             <DollarOutlined />
-            <span>Financial Details</span>
+            <span>{t("financialDetails")}</span>
           </Space>
         }
         style={{ marginTop: "24px" }}
@@ -219,18 +221,18 @@ export default function InvoiceDetailPage() {
         <Row gutter={[24, 16]}>
           <Col xs={24} md={12}>
             <Descriptions column={1} size="small">
-              <Descriptions.Item label="Line Extension Amount">
+              <Descriptions.Item label={t("lineExtensionAmount")}>
                 €{invoceDetail.lineExtensionAmount}
               </Descriptions.Item>
-              <Descriptions.Item label="Tax Exclusive Amount">
+              <Descriptions.Item label={t("taxExclusiveAmount")}>
                 €{invoceDetail.taxExclusiveAmount}
               </Descriptions.Item>
-              <Descriptions.Item label="Tax Inclusive Amount">
+              <Descriptions.Item label={t("taxInclusiveAmount")}>
                 <Text strong style={{ color: "#1890ff" }}>
                   €{invoceDetail.taxInclusiveAmount}
                 </Text>
               </Descriptions.Item>
-              <Descriptions.Item label="Payable Amount">
+              <Descriptions.Item label={t("payableAmount")}>
                 <Text strong style={{ color: "#52c41a" }}>
                   €{invoceDetail.payableAmount}
                 </Text>
@@ -238,27 +240,27 @@ export default function InvoiceDetailPage() {
             </Descriptions>
           </Col>
           <Col xs={24} md={12}>
-            <Card size="small" title="Payment Status">
+            <Card size="small" title={t("paymentStatus")}>
               <Space direction="vertical" style={{ width: "100%" }}>
                 <div>
-                  <Text type="secondary">Status: </Text>
+                  <Text type="secondary">{t("status")}: </Text>
                   <Tag
                     color={getPaymentStatusColor(
                       invoceDetail.paymentDetails?.paymentStatus
                     )}
                   >
                     {invoceDetail.paymentDetails?.paymentStatus?.toUpperCase() ||
-                      "UNKNOWN"}
+                      t("unknown")}
                   </Tag>
                 </div>
                 <Descriptions column={1} size="small">
-                  <Descriptions.Item label="Total Amount">
+                  <Descriptions.Item label={t("totalAmount")}>
                     €{invoceDetail.paymentDetails?.totalAmount || 0}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Paid Amount">
+                  <Descriptions.Item label={t("paidAmount")}>
                     €{invoceDetail.paymentDetails?.paidAmount || 0}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Remaining Amount">
+                  <Descriptions.Item label={t("remainingAmount")}>
                     <Text strong style={{ color: "#f5222d" }}>
                       €{invoceDetail.paymentDetails?.remainingAmount || 0}
                     </Text>
@@ -270,33 +272,33 @@ export default function InvoiceDetailPage() {
         </Row>
       </Card>
 
-      <Card title="Additional Information" style={{ marginTop: "24px" }}>
+      <Card title={t("additionalInformation")} style={{ marginTop: "24px" }}>
         <Descriptions column={{ xs: 1, sm: 2, md: 3 }} size="small">
-          <Descriptions.Item label="Document Type">
+          <Descriptions.Item label={t("documentType")}>
             {invoceDetail.documentType}
           </Descriptions.Item>
-          <Descriptions.Item label="Type">
+          <Descriptions.Item label={t("type")}>
             {invoceDetail.type}
           </Descriptions.Item>
-          <Descriptions.Item label="Source">
+          <Descriptions.Item label={t("source")}>
             {invoceDetail.source}
           </Descriptions.Item>
-          <Descriptions.Item label="Currency">
+          <Descriptions.Item label={t("currency")}>
             {invoceDetail.currency}
           </Descriptions.Item>
-          <Descriptions.Item label="Send via PEPPOL">
+          <Descriptions.Item label={t("sendViaPeppol")}>
             <Tag color={invoceDetail.sendViaPeppol ? "green" : "red"}>
-              {invoceDetail.sendViaPeppol ? "Yes" : "No"}
+              {invoceDetail.sendViaPeppol ? t("yes") : t("no")}
             </Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Created Date">
+          <Descriptions.Item label={t("createdDate")}>
             {formatDate(invoceDetail.createdTime)}
           </Descriptions.Item>
-          <Descriptions.Item label="Last Updated">
+          <Descriptions.Item label={t("lastUpdated")}>
             {formatDate(invoceDetail.lastUpdatedTime)}
           </Descriptions.Item>
           {invoceDetail.deliveryDate && (
-            <Descriptions.Item label="Delivery Date">
+            <Descriptions.Item label={t("deliveryDate")}>
               {formatDate(invoceDetail.deliveryDate)}
             </Descriptions.Item>
           )}
